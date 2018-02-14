@@ -1,0 +1,30 @@
+{
+  "name": "ssearch",
+  "version": "1.0.0",
+  "description": "Lightweight fuzzy search for big texts",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/index.js --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anpur/ssearch.git"
+  },
+  "keywords": [
+    "fuzzy",
+    "search",
+    "lightweight",
+    "javascript",
+    "text"
+  ],
+  "author": "Anton Purin (purin.anton@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anpur/ssearch/issues"
+  },
+  "homepage": "https://github.com/anpur/ssearch#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0"
+  }
+}
