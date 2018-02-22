@@ -19,6 +19,15 @@ describe.only('Single word', () => {
         checkMatch('triangular', 'triangula', 0.9);
     });
 
+    it.only('Two letters missing', () => {
+        // checkMatch('word', 'od', 0.5, true);
+        // checkMatch('word', 'wo', 0.5, true);
+        // checkMatch('word', 'wr', 0.5, true);
+        checkMatch('triangular', 'riangula', 0.8, true);
+        checkMatch('triangular', 'trianglr', 0.8, true);        
+        checkMatch('triangular', 'triangua', 0.8, true);
+    });
+
     it('Two letters mixed', () => {
         checkMatch('owrd', 'word', 0.875);
         checkMatch('wrod', 'word', 0.875);
@@ -40,17 +49,21 @@ describe.only('Single word', () => {
         checkMatch('triangular', 'tri1angular', 0.95);
         checkMatch('triangular', 'tr1iangular', 0.95);
         checkMatch('triangular', 't1riangular', 0.95);
-        checkNotMatch('triang1ula1r', 'triangular');
+        checkNotMatch('triang1ula1r', 'triangular', false);
     });
 
-    function checkMatch(query, word, score) {
+    function checkMatch(query, word, score, doubleTolerance) {
         checkMatchFull(
-            new ssearch(), 'Some text going here ', ' and something after', 
+            new ssearch({ doubleTolerance: doubleTolerance, debug: true }), 'Some text going here ', ' and something after', 
+            query, word, score);
+
+        checkMatchFull(
+            new ssearch({ doubleTolerance: true, debug: true }), 'Some text going here ', ' and something after', 
             query, word, score);
     }
 
-    function checkNotMatch(query, word) {
-        const s = new ssearch();
+    function checkNotMatch(query, word, doubleTolerance) {
+        const s = new ssearch({ doubleTolerance: doubleTolerance, debug: true });
         const text = `Some text going here ${word} and something after`;    
         const match = s.search(text, query);    
         expect(match).to.be.null;
